@@ -15,7 +15,7 @@ resource "azurerm_virtual_network" "vnet" {
   tags                = var.tags
 }
 
-resource "azurerm_subnet" "vnet" {
+resource "azurerm_subnet" "web_subnet" {
   name                 = "aniket-subnet"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet.name
@@ -30,7 +30,7 @@ resource "azurerm_network_security_group" "web_nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "web_nsg_association" {
-  subnet_id                 = azurerm_subnet.vnet.id
+  subnet_id                 = azurerm_subnet.web_subnet.id
   network_security_group_id = azurerm_network_security_group.web_nsg.id
 }
 
